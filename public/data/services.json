@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Traslados aeropuerto-pueblo",
+    "content": "Recogida en el aeropuerto y traslado al alojamiento (y viceversa). Distancia: 23 km, aprox. 20-30 minutos."
+  },
+  {
+    "title": "Excursión al Glaciar Perito Moreno",
+    "items": [
+      "Traslado desde el alojamiento hasta el glaciar (1,5 horas).",
+      "Parada fotográfica durante el recorrido.",
+      "Entrada al Parque Nacional Los Glaciares por cuenta del pasajero.",
+      "Opcional: navegación de 1 hora en el glaciar (pago aparte).",
+      "Dos horas para recorrer las pasarelas.",
+      "Asistencia de choferes para compra de tickets y orientación (no acompañan caminatas).",
+      "Duración total en el parque: aprox. 3 horas."
+    ]
+  },
+  {
+    "title": "Excursión a El Chaltén",
+    "items": [
+      "Excursión de día completo (220 km, 3 horas de viaje).",
+      "Paradas en Parador La Leona y un mirador.",
+      "Caminatas: Mirador de los Cóndores (1 km de ascenso) y Chorrillo del Salto (cascada a 5 cuadras del centro).",
+      "4 horas de estadía en el pueblo, opción de almorzar en restaurante local (costo adicional)."
+    ]
+  }
+]

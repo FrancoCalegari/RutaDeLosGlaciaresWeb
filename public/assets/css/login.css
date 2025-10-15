@@ -1,0 +1,95 @@
+/* ======= Estilos generales ======= */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #3498db, #8e44ad);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #fff;
+}
+
+/* ======= Contenedor principal ======= */
+.login-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 40px 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+/* ======= Título ======= */
+.login-container h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* ======= Mensaje de error ======= */
+.login-container p {
+  color: #ff6b6b;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* ======= Campos del formulario ======= */
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-container input {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background: rgba(255,255,255,0.9);
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.login-container input:focus {
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.4);
+}
+
+/* ======= Botón ======= */
+.login-container button {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-container button:hover {
+  background: #27ae60;
+}
+
+/* ======= Adaptabilidad ======= */
+@media (max-width: 480px) {
+  .login-container {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  .login-container h2 {
+    font-size: 20px;
+  }
+
+  .login-container input, 
+  .login-container button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutas De Los Glaciares - Inicio</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+    <!-- Header / Hero con Logo -->
+    <header>
+        <img src="./assets/img/logo.png" alt="Rutas De Los Glaciares Logo" class="logo">
+        <h1>Rutas De Los Glaciares</h1>
+        <p>Traslados y excursiones privadas en El Calafate y El Chaltén</p>
+    </header>
+
+    <!-- Carrusel de Imágenes -->
+    <section id="carrusel">
+        <h2>Galería de Imágenes</h2>
+        <div class="carousel-container">
+            <img src="./assets/img/imagen1.jpg" alt="Glaciar Perito Moreno" class="carousel-img" onclick="openModal(this)">
+            <img src="./assets/img/imagen2.jpg" alt="El Chaltén" class="carousel-img" onclick="openModal(this)">
+            <img src="./assets/img/imagen3.jpg" alt="Paisaje" class="carousel-img" onclick="openModal(this)">
+        </div>
+    </section>
+
+    <!-- Modal / Lightbox para visualizar imágenes -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <!-- Resumen de Servicios -->
+    <section id="resumen-servicios">
+        <h2>Resumen de nuestros servicios</h2>
+        <p>Ofrecemos traslados y excursiones privadas con atención personalizada y flexibilidad para los pasajeros.</p>
+    </section>
+
+    <!-- Servicios Principales -->
+    <section id="servicios">
+        <h2>Servicios principales</h2>
+
+        <article>
+            <h3>Traslados aeropuerto-pueblo</h3>
+            <p>Recogida en el aeropuerto y traslado al alojamiento (y viceversa). Distancia: 23 km, aprox. 20-30 minutos.</p>
+        </article>
+
+        <article>
+            <h3>Excursión al Glaciar Perito Moreno</h3>
+            <ul>
+                <li>Traslado desde el alojamiento hasta el glaciar (1,5 horas).</li>
+                <li>Parada fotográfica durante el recorrido.</li>
+                <li>Entrada al Parque Nacional Los Glaciares por cuenta del pasajero.</li>
+                <li>Opcional: navegación de 1 hora en el glaciar (pago aparte).</li>
+                <li>Dos horas para recorrer las pasarelas.</li>
+                <li>Asistencia de choferes para compra de tickets y orientación (no acompañan caminatas).</li>
+                <li>Duración total en el parque: aprox. 3 horas.</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Excursión a El Chaltén</h3>
+            <ul>
+                <li>Excursión de día completo (220 km, 3 horas de viaje).</li>
+                <li>Paradas en Parador La Leona y un mirador.</li>
+                <li>Caminatas: Mirador de los Cóndores (1 km de ascenso) y Chorrillo del Salto (cascada a 5 cuadras del centro).</li>
+                <li>4 horas de estadía en el pueblo, opción de almorzar en restaurante local (costo adicional).</li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- Ventajas del Servicio Privado -->
+    <section id="ventajas">
+        <h2>Ventajas del servicio privado</h2>
+        <ul>
+            <li><strong>Ahorro de costos:</strong> El cobro es por vehículo, ideal para grupos de 3-4 personas.</li>
+            <li><strong>Horarios flexibles:</strong> Posibilidad de modificar horarios o extender/excluir tiempo de la excursión.</li>
+            <li><strong>Atención personalizada:</strong> Choferes brindan asistencia y orientación, conocen el lugar y las actividades.</li>
+        </ul>
+    </section>
+
+    <!-- Costos Adicionales -->
+    <section id="costos">
+        <h2>Costos adicionales</h2>
+        <ul>
+            <li>Alojamiento: no incluido.</li>
+            <li>Entrada a Parques Nacionales y navegaciones en el glaciar: pago aparte.</li>
+            <li>Almuerzo en El Chaltén: costo adicional.</li>
+            <li>Guía turístico: opcional, contratar y pagar directamente al guía; podemos facilitar el contacto.</li>
+            <li>Precios exactos: pendientes de coordinación con los choferes; se agregarán más excursiones en el futuro.</li>
+        </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Rutas De Los Glaciares</p>
+    </footer>
+
+    <!-- Script para el modal -->
+    <script>
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const captionText = document.getElementById("caption");
+
+        function openModal(img) {
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            captionText.innerHTML = img.alt;
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Cerrar modal al hacer clic fuera de la imagen
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

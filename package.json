@@ -1,0 +1,21 @@
+{
+  "name": "rutadelosglaciaresweb",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "dev",
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "Franco Calegari",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.10"
+  }
+}

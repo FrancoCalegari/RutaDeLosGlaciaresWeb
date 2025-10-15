@@ -1,0 +1,338 @@
+/* =======================
+   RESET & BASE
+======================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'FontSecondary';
+    src: url('/assets/fonts/fontsecundaria.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'FontTitle';
+    src: url('/assets/fonts/GosfordRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --color-blanco: #ffffff;
+    --color-celeste: #4db8ff;
+    --color-negro: #000000;
+    --color-gris: #f9f9f9;
+    --color-oscuro: #1c1c1c;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--color-blanco);
+    color: var(--color-negro);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* =======================
+   HEADER / HERO
+======================= */
+header {
+    background: linear-gradient(to bottom right, var(--color-celeste), #007acc);
+    color: var(--color-blanco);
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-family: 'FontTitle', serif;
+    letter-spacing: 2px;
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.logo {
+    width: 10rem;
+}
+
+/* =======================
+   SECCIONES BASE
+======================= */
+section {
+    padding: 80px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+section h2 {
+    color: var(--color-celeste);
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+}
+
+section h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--color-celeste);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+section p, section ul {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: var(--color-blanco);
+}
+
+/* =======================
+   CARRUSEL DE IMÁGENES
+======================= */
+#carrusel {
+    background: var(--color-gris);
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.carousel-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+}
+
+.carousel-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+    background: var(--color-celeste);
+    border-radius: 4px;
+}
+
+.carousel-img {
+    flex: 0 0 auto;
+    width: 280px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.carousel-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* =======================
+   MODAL LIGHTBOX
+======================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+#caption {
+    text-align: center;
+    color: #fff;
+    font-size: 1.1rem;
+    margin-top: 15px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close:hover {
+    color: var(--color-celeste);
+}
+
+/* =======================
+   SERVICIOS (dinámico + background blur)
+======================= */
+#servicios {
+    position: relative;
+    color: var(--color-blanco);
+    overflow: hidden;
+    border-radius: 0;
+    padding: 100px 20px;
+}
+
+
+
+#servicios h2, 
+#servicios article {
+    position: relative;
+    z-index: 2;
+}
+
+#servicios h2 {
+    color: var(--color-blanco);
+}
+
+#servicios article {
+    background-color: rgba(255,255,255,0.1);
+    backdrop-filter: blur(4px);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    transition: var(--transition);
+}
+
+#servicios article:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255,255,255,0.2);
+}
+
+#servicios article h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--color-blanco);
+}
+
+#servicios article p, 
+#servicios article li {
+    color: #f0f0f0;
+}
+
+/* =======================
+   VENTAJAS & COSTOS
+======================= */
+#ventajas ul, #costos ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#ventajas li, #costos li {
+    background: #f3faff;
+    border-left: 4px solid var(--color-celeste);
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    transition: var(--transition);
+    color: var(--color-negro);
+}
+
+#ventajas li:hover, #costos li:hover {
+    background: #e8f6ff;
+}
+
+/* =======================
+   FOOTER
+======================= */
+footer {
+    background: var(--color-oscuro);
+    color: var(--color-blanco);
+    text-align: center;
+    padding: 25px;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+/* =======================
+   RESPONSIVE
+======================= */
+@media (max-width: 768px) {
+    header {
+        padding: 60px 20px;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    section {
+        padding: 60px 20px;
+    }
+
+    #servicios article {
+        padding: 20px;
+    }
+
+    .carousel-img {
+        width: 200px;
+        height: 130px;
+    }
+}
+
+
+/* ================= Fondo dinámico con blur ================= */
+#dynamic-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.background-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.2);
+}

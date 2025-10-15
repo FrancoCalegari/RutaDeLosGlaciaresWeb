@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+  <%- include('partials/headAdmin') %>
+<body>
+
+
+  <%- include('partials/header') %>
+
+  <main id="admin-panel">
+    <h1>Panel de Administración</h1>
+
+    <!-- =================== FONDO DINÁMICO =================== -->
+    <section class="admin-section">
+      <h2>Fondo dinámico</h2>
+      <div class="form-group">
+        <label>URL de la imagen:</label>
+        <input type="text" id="bgSrc" value="<%= background.src %>">
+        <label>Descripción:</label>
+        <input type="text" id="bgAlt" value="<%= background.alt %>">
+        <button onclick="saveBackground()">💾 Guardar Fondo</button>
+      </div>
+    </section>
+
+    <!-- =================== GALERÍA =================== -->
+    <section class="admin-section">
+      <h2>Galería de Imágenes</h2>
+      <div id="gallery-list">
+        <% images.forEach((img, index) => { %>
+          <div class="item" data-index="<%= index %>">
+            <input type="text" value="<%= img.src %>" class="img-src">
+            <input type="text" value="<%= img.alt %>" class="img-alt">
+            <button onclick="updateImage(<%= index %>)">✏️ Actualizar</button>
+            <button onclick="deleteImage(<%= index %>)">🗑️ Eliminar</button>
+          </div>
+        <% }) %>
+      </div>
+      <div class="new-item">
+        <input type="text" id="newImgSrc" placeholder="URL de imagen">
+        <input type="text" id="newImgAlt" placeholder="Descripción">
+        <button onclick="addImage()">➕ Agregar Imagen</button>
+      </div>
+    </section>
+
+    <!-- =================== RESUMEN =================== -->
+    <section class="admin-section">
+      <h2>Resumen</h2>
+      <input type="text" id="summaryTitle" value="<%= summary.title %>">
+      <textarea id="summaryDesc"><%= summary.description %></textarea>
+      <button onclick="saveSummary()">💾 Guardar Resumen</button>
+    </section>
+
+    <!-- =================== SERVICIOS =================== -->
+    <section class="admin-section">
+      <h2>Servicios Principales</h2>
+      <div id="services-list">
+        <% services.forEach((s, index) => { %>
+          <div class="service-item" data-index="<%= index %>">
+            <input type="text" value="<%= s.title %>" class="service-title">
+            <textarea class="service-content"><%= s.content || (s.items ? s.items.join('\n') : '') %></textarea>
+            <button onclick="updateService(<%= index %>)">✏️ Actualizar</button>
+            <button onclick="deleteService(<%= index %>)">🗑️ Eliminar</button>
+          </div>
+        <% }) %>
+      </div>
+      <div class="new-item">
+        <input type="text" id="newServiceTitle" placeholder="Título">
+        <textarea id="newServiceContent" placeholder="Contenido o lista (una línea por item)"></textarea>
+        <button onclick="addService()">➕ Agregar Servicio</button>
+      </div>
+    </section>
+
+    <!-- =================== VENTAJAS =================== -->
+    <section class="admin-section">
+      <h2>Ventajas</h2>
+      <input type="text" id="advantagesTitle" value="<%= advantages.title %>">
+      <div id="advantages-list">
+        <% advantages.items.forEach((v, index) => { %>
+          <div class="item" data-index="<%= index %>">
+            <input type="text" value="<%= v.strong %>" class="adv-strong">
+            <input type="text" value="<%= v.text %>" class="adv-text">
+            <button onclick="updateAdvantage(<%= index %>)">✏️</button>
+            <button onclick="deleteAdvantage(<%= index %>)">🗑️</button>
+          </div>
+        <% }) %>
+      </div>
+      <div class="new-item">
+        <input type="text" id="newAdvStrong" placeholder="Título corto (negrita)">
+        <input type="text" id="newAdvText" placeholder="Descripción">
+        <button onclick="addAdvantage()">➕ Agregar Ventaja</button>
+      </div>
+    </section>
+
+    <!-- =================== COSTOS =================== -->
+    <section class="admin-section">
+      <h2>Costos Adicionales</h2>
+      <input type="text" id="costsTitle" value="<%= costs.title %>">
+      <div id="costs-list">
+        <% costs.items.forEach((c, index) => { %>
+          <div class="item" data-index="<%= index %>">
+            <input type="text" value="<%= c %>" class="cost-item">
+            <button onclick="updateCost(<%= index %>)">✏️</button>
+            <button onclick="deleteCost(<%= index %>)">🗑️</button>
+          </div>
+        <% }) %>
+      </div>
+      <div class="new-item">
+        <input type="text" id="newCost" placeholder="Nuevo costo">
+        <button onclick="addCost()">➕ Agregar Costo</button>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+
+  <script>
+    // ========== FUNCIONES CRUD BACKGROUND ==========
+    function saveBackground() {
+      const data = {
+        src: document.getElementById('bgSrc').value,
+        alt: document.getElementById('bgAlt').value
+      };
+      fetch('/api/background', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+    }
+
+    // ========== CRUD IMÁGENES ==========
+    function addImage() {
+      const src = document.getElementById('newImgSrc').value;
+      const alt = document.getElementById('newImgAlt').value;
+      fetch('/api/images', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ src, alt }) })
+        .then(() => location.reload());
+    }
+
+    function updateImage(i) {
+      const el = document.querySelector(`[data-index='${i}']`);
+      const src = el.querySelector('.img-src').value;
+      const alt = el.querySelector('.img-alt').value;
+      fetch('/api/images/' + i, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ src, alt }) })
+        .then(() => location.reload());
+    }
+
+    function deleteImage(i) {
+      fetch('/api/images/' + i, { method: 'DELETE' }).then(() => location.reload());
+    }
+
+    // ========== CRUD SUMMARY ==========
+    function saveSummary() {
+      fetch('/api/summary', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          title: document.getElementById('summaryTitle').value,
+          description: document.getElementById('summaryDesc').value
+        })
+      });
+    }
+
+    // ========== CRUD SERVICES ==========
+    function addService() {
+      const title = document.getElementById('newServiceTitle').value;
+      const content = document.getElementById('newServiceContent').value;
+      fetch('/api/services', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ title, content }) })
+        .then(() => location.reload());
+    }
+
+    function updateService(i) {
+      const el = document.querySelector(`[data-index='${i}']`);
+      const title = el.querySelector('.service-title').value;
+      const content = el.querySelector('.service-content').value;
+      fetch('/api/services/' + i, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ title, content }) })
+        .then(() => location.reload());
+    }
+
+    function deleteService(i) {
+      fetch('/api/services/' + i, { method: 'DELETE' }).then(() => location.reload());
+    }
+
+    // ========== CRUD ADVANTAGES ==========
+    function addAdvantage() {
+      const strong = document.getElementById('newAdvStrong').value;
+      const text = document.getElementById('newAdvText').value;
+      fetch('/api/advantages', { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({ strong, text }) // ⚡ asegurarse que la API reciba {strong,text}
+      })
+      .then(res => res.json())
+      .then(() => location.reload())
+      .catch(err => console.error(err));
+    }
+
+
+    function updateAdvantage(i) {
+      const el = document.querySelector(`[data-index='${i}']`);
+      const strong = el.querySelector('.adv-strong').value;
+      const text = el.querySelector('.adv-text').value;
+      fetch('/api/advantages/' + i, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ strong, text }) })
+        .then(() => location.reload());
+    }
+
+    function deleteAdvantage(i) {
+      fetch('/api/advantages/' + i, { method: 'DELETE' }).then(() => location.reload());
+    }
+
+    // ========== CRUD COSTS ==========
+    function addCost() {
+    const item = document.getElementById('newCost').value;
+    fetch('/api/costs', { 
+      method: 'POST', 
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify({ item }) // ⚡ aquí debe llamarse "item"
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Error al agregar el costo');
+      return res.json();
+    })
+    .then(() => location.reload())
+    .catch(err => console.error(err));
+    }
+
+
+    function updateCost(i) {
+      const el = document.querySelector(`[data-index='${i}']`);
+      const value = el.querySelector('.cost-item').value;
+      fetch('/api/costs/' + i, { method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ value }) })
+        .then(() => location.reload());
+    }
+
+    function deleteCost(i) {
+      fetch('/api/costs/' + i, { method: 'DELETE' }).then(() => location.reload());
+    }
+  </script>
+</body>
+</html>
