@@ -166,13 +166,7 @@ section p, section ul {
     align-items: center;
 }
 
-.modal-content {
-    max-width: 90%;
-    max-height: 80vh;
-    border-radius: 8px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-    animation: fadeIn 0.4s ease;
-}
+
 
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.95); }
@@ -198,6 +192,24 @@ section p, section ul {
 
 .close:hover {
     color: var(--color-celeste);
+}
+
+.modalContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modalimagecontainer{
+    max-width: 90%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 /* =======================
