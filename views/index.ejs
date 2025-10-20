@@ -11,6 +11,13 @@
     <div class="background-blur"></div>
   </div>
 
+
+<div class="hero">
+  <img src="./assets/img/logo.png" alt="Rutas De Los Glaciares Logo" class="logo-hero">
+  <h1>Rutas De Los Glaciares</h1>
+  <p>Traslados y excursiones privadas en El Calafate y El Chaltén</p>
+</div>
+
   <!-- Carrusel -->
   <section id="carrusel">
     <h2>Galería de Imágenes</h2>
@@ -79,6 +86,20 @@
   </section>
 
   <%- include('partials/footer') %>
+
+<script>
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const body = document.body;
+  if (scrollY > 150) {
+    body.classList.add('scrolled');
+  } else {
+    body.classList.remove('scrolled');
+  }
+});
+</script>
+
+
 
   <script>
     const modal = document.getElementById("imageModal");

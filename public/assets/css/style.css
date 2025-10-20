@@ -25,6 +25,7 @@
 
 :root {
     --color-blanco: #ffffff;
+    --color-blanco-transparente: #ffffff18;
     --color-celeste: #4db8ff;
     --color-negro: #000000;
     --color-gris: #f9f9f9;
@@ -41,38 +42,154 @@ body {
 }
 
 /* =======================
-   HEADER / HERO
+    HEADER / HERO (adaptado)
 ======================= */
-header {
-    background: linear-gradient(to bottom right, var(--color-celeste), #007acc);
-    color: var(--color-blanco);
-    text-align: center;
-    padding: 100px 20px;
-    position: relative;
-    overflow: hidden;
+
+/* Estilo base del navbar (adaptado a la selección) */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background: transparent;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: none;
+    z-index: 100;
+    backdrop-filter: blur(30px);
 }
 
-header::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+/* Cuando el usuario hace scroll, cambia el fondo y la sombra */
+body.scrolled .navbar {
+  background: var(--color-blanco-transparente);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
 }
 
-header h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    font-family: 'FontTitle', serif;
-    letter-spacing: 2px;
+/* Soporte retrocompatible para la clase .logo usada antes */
+.navbar .logo {
+     width: auto;
+     max-width: 120px;
+     height: auto;
 }
 
-header p {
-    font-size: 1.2rem;
-    opacity: 0.9;
+/* Logo dentro del navbar (invisible al inicio, aparece al hacer scroll) */
+.logo-navbar img,
+.navbar .logo img {
+     width: 120px;
+     transition: transform 0.4s ease, opacity 0.3s ease;
+     opacity: 0;              /* invisible al inicio */
+     transform: translateY(-50px);
+     display: block;
 }
 
-.logo {
-    width: 10rem;
+/* Contenedor de links en el navbar */
+.nav-links {
+     display: flex;
+     gap: 2rem;
+}
+
+.nav-links a {
+     color: var(--color-blanco); /* contraste sobre navbar blanco */
+     text-decoration: none;
+     font-size: 1.1rem;
+     transition: var(--transition);
+}
+
+.nav-links a:hover {
+     color: var(--color-celeste);
+}
+
+/* Hero section (adaptado) */
+.hero {
+     color: var(--color-blanco);
+     text-align: center;
+     /* restablecemos padding/centrado y ajustamos altura para cubrir pantalla */
+     padding: 100px 20px;
+     position: relative;
+     overflow: hidden;
+     margin-top: 70px; /* compensar navbar fijo */
+     min-height: calc(100vh - 70px);
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     background: url('/assets/img/hero-bg.jpg') center/cover no-repeat;
+}
+
+/* Logo grande en el hero */
+.logo-hero,
+.hero .logo {
+     width: 250px;
+     max-width: 60vw;
+     transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+/* Textos del hero */
+.hero h1 {
+     font-family: 'FontTitle', Arial, sans-serif;
+     font-size: 3.5rem;
+     margin-bottom: 1rem;
+     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero p {
+     font-size: 1.5rem;
+     max-width: 600px;
+     margin: 0 auto;
+     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Estado cuando el usuario ha hecho scroll */
+body.scrolled .logo-hero,
+body.scrolled .hero .logo {
+     transform: scale(0.6) translateY(-200px);
+     opacity: 0;
+     width: 4vw;
+}
+
+body.scrolled .logo-navbar img,
+body.scrolled .navbar .logo img {
+     opacity: 1;
+     transform: translateY(0);
+     width: 4vw;
+}
+
+/* Responsive adjustments (mantener compatibilidad con selección original) */
+@media (max-width: 768px) {
+     .hero .logo,
+     .logo-hero {
+          width: 50vw;
+     }
+     
+     .hero h1 {
+          font-size: 2.5rem;
+     }
+     
+     .hero p {
+          font-size: 1.2rem;
+     }
+
+     .navbar {
+          flex-direction: column;
+          padding: 1rem;
+          height: auto;
+     }
+     
+     .nav-links {
+          margin-top: 1rem;
+          gap: 1rem;
+     }
+
+     body.scrolled .logo-navbar img, body.scrolled .navbar .logo img {
+        opacity: 1;
+        transform: translateY(0);
+        width: 12vw;
+    }
 }
 
 /* =======================
@@ -112,9 +229,12 @@ section p, section ul {
    CARRUSEL DE IMÁGENES
 ======================= */
 #carrusel {
-    background: var(--color-gris);
+    background: #f9f9f933;
     text-align: center;
     padding: 60px 20px;
+    backdrop-filter: blur(23px);
+    border-radius: 25px;
+    box-shadow: 5px 10px 74px;
 }
 
 .carousel-container {
