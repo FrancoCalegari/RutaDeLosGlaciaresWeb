@@ -1,0 +1,17 @@
+<section class="admin-section">
+  <h2>Costos Adicionales</h2>
+  <input type="text" id="costsTitle" value="<%= costs.title %>">
+  <div id="costs-list">
+    <% costs.items.forEach((c, index) => { %>
+      <div class="item" data-index="<%= index %>">
+        <input type="text" value="<%= c %>" class="cost-item">
+        <button onclick="updateCost(<%= index %>)">✏️</button>
+        <button onclick="deleteCost(<%= index %>)">🗑️</button>
+      </div>
+    <% }) %>
+  </div>
+  <div class="new-item">
+    <input type="text" id="newCost" placeholder="Nuevo costo">
+    <button onclick="addCost()">➕ Agregar Costo</button>
+  </div>
+</section>

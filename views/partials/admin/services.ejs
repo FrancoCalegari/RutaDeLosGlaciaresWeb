@@ -1,0 +1,18 @@
+<section class="admin-section">
+  <h2>Servicios Principales</h2>
+  <div id="services-list">
+    <% services.forEach((s, index) => { %>
+      <div class="service-item" data-index="<%= index %>">
+        <input type="text" value="<%= s.title %>" class="service-title">
+        <textarea class="service-content"><%= s.content || (s.items ? s.items.join('\n') : '') %></textarea>
+        <button onclick="updateService(<%= index %>)">✏️ Actualizar</button>
+        <button onclick="deleteService(<%= index %>)">🗑️ Eliminar</button>
+      </div>
+    <% }) %>
+  </div>
+  <div class="new-item">
+    <input type="text" id="newServiceTitle" placeholder="Título">
+    <textarea id="newServiceContent" placeholder="Contenido o lista (una línea por item)"></textarea>
+    <button onclick="addService()">➕ Agregar Servicio</button>
+  </div>
+</section>

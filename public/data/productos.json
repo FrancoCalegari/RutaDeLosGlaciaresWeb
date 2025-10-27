@@ -9,5 +9,16 @@
     "imagenesProducto": [
       ""
     ]
+  },
+  {
+    "id": 2,
+    "nombreProducto": "teste",
+    "detalleProducto": "adwdawd",
+    "extrasProducto": "awdawd",
+    "precioProducto": "111111",
+    "descuentoProducto": "111",
+    "imagenesProducto": [
+      ""
+    ]
   }
 ]

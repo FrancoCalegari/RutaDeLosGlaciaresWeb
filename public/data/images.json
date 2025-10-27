@@ -6,5 +6,10 @@
   {
     "src": "https://content.r9cdn.net/rimg/dimg/a9/50/3d0b550a-city-52460-1671e1e779a.jpg",
     "alt": "test"
+  },
+  {
+    "id": 3,
+    "src": "test",
+    "alt": "test"
   }
 ]

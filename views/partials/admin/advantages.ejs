@@ -1,0 +1,19 @@
+<section class="admin-section">
+  <h2>Ventajas</h2>
+  <input type="text" id="advantagesTitle" value="<%= advantages.title %>">
+  <div id="advantages-list">
+    <% advantages.items.forEach((v, index) => { %>
+      <div class="item" data-index="<%= index %>">
+        <input type="text" value="<%= v.strong %>" class="adv-strong">
+        <input type="text" value="<%= v.text %>" class="adv-text">
+        <button onclick="updateAdvantage(<%= index %>)">✏️</button>
+        <button onclick="deleteAdvantage(<%= index %>)">🗑️</button>
+      </div>
+    <% }) %>
+  </div>
+  <div class="new-item">
+    <input type="text" id="newAdvStrong" placeholder="Título corto (negrita)">
+    <input type="text" id="newAdvText" placeholder="Descripción">
+    <button onclick="addAdvantage()">➕ Agregar Ventaja</button>
+  </div>
+</section>

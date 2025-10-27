@@ -1,0 +1,18 @@
+<section class="admin-section">
+  <h2>Galería de Imágenes</h2>
+  <div id="gallery-list">
+    <% images.forEach((img, index) => { %>
+      <div class="item" data-index="<%= index %>">
+        <input type="text" value="<%= img.src %>" class="img-src">
+        <input type="text" value="<%= img.alt %>" class="img-alt">
+        <button onclick="updateImage(<%= index %>)">✏️ Actualizar</button>
+        <button onclick="deleteImage(<%= index %>)">🗑️ Eliminar</button>
+      </div>
+    <% }) %>
+  </div>
+  <div class="new-item">
+    <input type="text" id="newImgSrc" placeholder="URL de imagen">
+    <input type="text" id="newImgAlt" placeholder="Descripción">
+    <button onclick="addImage()">➕ Agregar Imagen</button>
+  </div>
+</section>

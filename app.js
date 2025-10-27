@@ -31,6 +31,8 @@ const servicesAPI = require("./routes/api/services");
 const advantagesAPI = require("./routes/api/advantages");
 const costsAPI = require("./routes/api/costs");
 const productosAPI = require("./routes/api/productos");
+const imagesAPI = require("./routes/api/images");
+
 
 // ===== Montar rutas =====
 app.use("/", publicRoutes);
@@ -39,7 +41,7 @@ app.use("/api/services", servicesAPI);
 app.use("/api/advantages", advantagesAPI);
 app.use("/api/costs", costsAPI);
 app.use("/api/productos", productosAPI);
-
+app.use("/api/images", imagesAPI);
 // ===== Iniciar servidor =====
 app.listen(PORT, () => {
 	console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
