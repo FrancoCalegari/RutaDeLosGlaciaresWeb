@@ -164,43 +164,61 @@
     fetch(`/api/productos/${id}`, { method: "DELETE" }).then(() => location.reload());
   }
 
-  // ========== CRUD GALLERY ==========
-function addGalleryImage() {
-  const url = document.getElementById("newImgSrc").value;
-  const title = document.getElementById("newImgAlt").value;
-  fetch("/api/gallery", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url, title })
+
+
+// ========= CRUD IMÁGENES (con id) =========
+function addImage() {
+  const src = document.getElementById('newImgSrc').value;
+  const alt = document.getElementById('newImgAlt').value;
+  fetch('/api/images', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ src, alt })
   }).then(() => location.reload());
 }
 
-
-function updateGalleryImage(id) {
-  const el = document.querySelector(`[data-gallery='${id}']`);
-  const url = el.querySelector(".gallery-url").value;
-  const title = el.querySelector(".gallery-title").value;
-
-  fetch(`/api/gallery/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url, title }),
+function updateImageById(id) {
+  const el = document.querySelector(`[data-id='${id}']`);
+  const src = el.querySelector('.img-src').value;
+  const alt = el.querySelector('.img-alt').value;
+  fetch(`/api/images/${id}`, {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ src, alt })
   })
-    .then((res) => {
-      if (!res.ok) throw new Error("Error al actualizar imagen");
-      return res.json();
-    })
-    .then(() => location.reload())
-    .catch((err) => console.error(err));
+  .then(res => {
+    if (!res.ok) throw new Error('Error al actualizar imagen');
+    return res.json();
+  })
+  .then(() => location.reload())
+  .catch(console.error);
 }
 
-function deleteGalleryImage(id) {
-  fetch(`/api/gallery/${id}`, { method: "DELETE" })
-    .then((res) => {
-      if (!res.ok) throw new Error("Error al eliminar imagen");
+function deleteImageById(id) {
+  fetch(`/api/images/${id}`, { method: 'DELETE' })
+    .then(res => {
+      if (!res.ok) throw new Error('Error al eliminar imagen');
       return res.json();
     })
     .then(() => location.reload())
-    .catch((err) => console.error(err));
+    .catch(console.error);
 }
+
+// ========= WRAPPERS de compatibilidad (index -> id) =========
+function updateImage(index) {
+  const item = document.querySelector(`[data-index='${index}'], [data-id]`); 
+  // si todavía tenés data-index en algún template viejo
+  const idAttr = item?.getAttribute('data-id');
+  if (!idAttr) return console.error('No se pudo resolver el id desde el index', index);
+  updateImageById(parseInt(idAttr, 10));
+}
+
+function deleteImage(index) {
+  const item = document.querySelector(`[data-index='${index}'], [data-id]`);
+  const idAttr = item?.getAttribute('data-id');
+  if (!idAttr) return console.error('No se pudo resolver el id desde el index', index);
+  deleteImageById(parseInt(idAttr, 10));
+}
+
+
 

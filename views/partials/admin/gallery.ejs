@@ -1,12 +1,13 @@
 <section class="admin-section">
   <h2>Galería de Imágenes</h2>
   <div id="gallery-list">
-    <% images.forEach((img, index) => { %>
-      <div class="item" data-index="<%= index %>">
+    <% images.forEach((img, index) => { 
+         const realId = (typeof img.id === 'number') ? img.id : (index + 1); %>
+      <div class="item" data-id="<%= realId %>">
         <input type="text" value="<%= img.src %>" class="img-src">
         <input type="text" value="<%= img.alt %>" class="img-alt">
-        <button onclick="updateImage(<%= index %>)">✏️ Actualizar</button>
-        <button onclick="deleteImage(<%= index %>)">🗑️ Eliminar</button>
+        <button onclick="updateImageById(<%= realId %>)">✏️ Actualizar</button>
+        <button onclick="deleteImageById(<%= realId %>)">🗑️ Eliminar</button>
       </div>
     <% }) %>
   </div>
