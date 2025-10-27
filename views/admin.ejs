@@ -108,6 +108,39 @@
         <button onclick="addCost()">➕ Agregar Costo</button>
       </div>
     </section>
+
+    <section id="productos-admin">
+  <h2>Administrar Productos</h2>
+
+  <div class="nuevo-producto">
+    <input id="nombreProducto" placeholder="Nombre del producto">
+    <input id="detalleProducto" placeholder="Detalle">
+    <input id="extrasProducto" placeholder="Extras">
+    <input id="precioProducto" type="number" placeholder="Precio">
+    <input id="descuentoProducto" type="number" placeholder="Descuento (%)">
+    <input id="imagenesProducto" placeholder="Rutas de imágenes separadas por coma">
+    <button onclick="addProducto()">Agregar Producto</button>
+  </div>
+
+  <div class="lista-productos">
+    <% productos.forEach(p => { %>
+      <div data-producto="<%= p.id %>">
+        <input class="nombreProducto" value="<%= p.nombreProducto %>">
+        <input class="detalleProducto" value="<%= p.detalleProducto %>">
+        <input class="extrasProducto" value="<%= p.extrasProducto %>">
+        <input class="precioProducto" value="<%= p.precioProducto %>">
+        <input class="descuentoProducto" value="<%= p.descuentoProducto %>">
+        <input class="imagenesProducto" value="<%= p.imagenesProducto.join(', ') %>">
+        <button onclick="updateProducto(<%= p.id %>)">Actualizar</button>
+        <button onclick="deleteProducto(<%= p.id %>)">Eliminar</button>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+
+
+
   </main>
 
   <%- include('partials/footer') %>
@@ -228,6 +261,57 @@
     function deleteCost(i) {
       fetch('/api/costs/' + i, { method: 'DELETE' }).then(() => location.reload());
     }
+
+   // ========== CRUD PRODUCTOS ==========
+  function addProducto() {
+    const nombreProducto = document.getElementById("nombreProducto").value;
+    const detalleProducto = document.getElementById("detalleProducto").value;
+    const extrasProducto = document.getElementById("extrasProducto").value;
+    const precioProducto = document.getElementById("precioProducto").value;
+    const descuentoProducto = document.getElementById("descuentoProducto").value;
+    const imagenesProducto = document.getElementById("imagenesProducto").value.split(",");
+
+    fetch("/api/productos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nombreProducto,
+        detalleProducto,
+        extrasProducto,
+        precioProducto,
+        descuentoProducto,
+        imagenesProducto
+      })
+    }).then(() => location.reload());
+  }
+
+  function updateProducto(id) {
+    const el = document.querySelector(`[data-producto='${id}']`);
+    const nombreProducto = el.querySelector(".nombreProducto").value;
+    const detalleProducto = el.querySelector(".detalleProducto").value;
+    const extrasProducto = el.querySelector(".extrasProducto").value;
+    const precioProducto = el.querySelector(".precioProducto").value;
+    const descuentoProducto = el.querySelector(".descuentoProducto").value;
+    const imagenesProducto = el.querySelector(".imagenesProducto").value.split(",");
+
+    fetch(`/api/productos/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nombreProducto,
+        detalleProducto,
+        extrasProducto,
+        precioProducto,
+        descuentoProducto,
+        imagenesProducto
+      })
+    }).then(() => location.reload());
+  }
+
+  function deleteProducto(id) {
+    fetch(`/api/productos/${id}`, { method: "DELETE" }).then(() => location.reload());
+  }
+
   </script>
 </body>
 </html>

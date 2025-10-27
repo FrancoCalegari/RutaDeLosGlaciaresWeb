@@ -1,123 +1,148 @@
 <!DOCTYPE html>
 <html lang="es">
-  <%- include('partials/head') %>
-<body>
+	<%- include('partials/head') %>
+	<body>
+		<%- include('partials/header') %>
 
-  <%- include('partials/header') %>
+		<!-- Fondo dinámico -->
+		<div id="dynamic-background">
+			<img
+				src="<%= background.src %>"
+				alt="Fondo dinámico"
+				class="background-img"
+			/>
+			<div class="background-blur"></div>
+		</div>
 
-    <!-- Fondo dinámico -->
-  <div id="dynamic-background">
-    <img src="<%= background.src %>" alt="Fondo dinámico" class="background-img">
-    <div class="background-blur"></div>
+		<div class="hero">
+			<img
+				src="./assets/img/logo.png"
+				alt="Rutas De Los Glaciares Logo"
+				class="logo-hero"
+			/>
+			<h1>Rutas De Los Glaciares</h1>
+			<p>Traslados y excursiones privadas en El Calafate y El Chaltén</p>
+		</div>
+
+    <div class="productos" id="productos">
+    <h2>Nuestros Productos</h2>
+    <div class="producto-lista">
+      <% products.forEach(product => { %>
+        <div class="producto-item">
+          <img src="<%= product.imagenesProducto[0] %>" alt="<%= product.nombreProducto %>" />
+          <h3><%= product.nombreProducto %></h3>
+          <p><%= product.detalleProducto %></p>
+          <p><%= product.extrasProducto %></p>
+          <span class="precio">$<%= product.precioProducto %></span>
+        </div>
+      <% }) %>
+    </div>
   </div>
 
 
-<div class="hero">
-  <img src="./assets/img/logo.png" alt="Rutas De Los Glaciares Logo" class="logo-hero">
-  <h1>Rutas De Los Glaciares</h1>
-  <p>Traslados y excursiones privadas en El Calafate y El Chaltén</p>
-</div>
+		<!-- Carrusel -->
+		<section id="carrusel">
+			<h2>Galería de Imágenes</h2>
+			<div class="carousel-container">
+				<% images.forEach(img => { %>
+				<img
+					src="<%= img.src %>"
+					alt="<%= img.alt %>"
+					class="carousel-img"
+					onclick="openModal(this)"
+				/>
+				<% }) %>
+			</div>
+		</section>
 
-  <!-- Carrusel -->
-  <section id="carrusel">
-    <h2>Galería de Imágenes</h2>
-    <div class="carousel-container">
-      <% images.forEach(img => { %>
-        <img src="<%= img.src %>" alt="<%= img.alt %>" class="carousel-img" onclick="openModal(this)">
-      <% }) %>
-    </div>
-  </section>
+		<!-- Modal -->
+		<div id="imageModal" class="modal">
+			<span class="close" onclick="closeModal()">&times;</span>
+			<div class="modalContainer">
+				<div class="modalimagecontainer">
+					<img class="modal-content" id="modalImage" />
+				</div>
 
-  <!-- Modal -->
-  <div id="imageModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div class="modalContainer">
-      <div class="modalimagecontainer">
-        <img class="modal-content" id="modalImage">
-      </div>
-          
-          <div id="caption"></div>
-    </div>
-  </div>
+				<div id="caption"></div>
+			</div>
+		</div>
 
-  <!-- Resumen -->
-  <section id="resumen-servicios">
-    <h2><%= summary.title %></h2>
-    <p><%= summary.description %></p>
-  </section>
+		<!-- Resumen -->
+		<section id="resumen-servicios">
+			<h2><%= summary.title %></h2>
+			<p><%= summary.description %></p>
+		</section>
 
-  <!-- Servicios -->
-  <section id="servicios">
-    <h2>Servicios principales</h2>
-    <% services.forEach(s => { %>
-      <article>
-        <h3><%= s.title %></h3>
-        <% if (s.content) { %>
-          <p><%= s.content %></p>
-        <% } else if (s.items) { %>
-          <ul>
-            <% s.items.forEach(item => { %>
-              <li><%= item %></li>
-            <% }) %>
-          </ul>
-        <% } %>
-      </article>
-    <% }) %>
-  </section>
+		<!-- Servicios -->
+		<section id="servicios">
+			<h2>Servicios principales</h2>
+			<% services.forEach(s => { %>
+			<article>
+				<h3><%= s.title %></h3>
+				<% if (s.content) { %>
+				<p><%= s.content %></p>
+				<% } else if (s.items) { %>
+				<ul>
+					<% s.items.forEach(item => { %>
+					<li><%= item %></li>
+					<% }) %>
+				</ul>
+				<% } %>
+			</article>
+			<% }) %>
+		</section>
 
-  <!-- Ventajas -->
-  <section id="ventajas">
-    <h2><%= advantages.title %></h2>
-    <ul>
-      <% advantages.items.forEach(v => { %>
-        <li><strong><%= v.strong %>:</strong> <%= v.text %></li>
-      <% }) %>
-    </ul>
-  </section>
+		<!-- Ventajas -->
+		<section id="ventajas">
+			<h2><%= advantages.title %></h2>
+			<ul>
+				<% advantages.items.forEach(v => { %>
+				<li><strong><%= v.strong %>:</strong> <%= v.text %></li>
+				<% }) %>
+			</ul>
+		</section>
 
-  <!-- Costos -->
-  <section id="costos">
-    <h2><%= costs.title %></h2>
-    <ul>
-      <% costs.items.forEach(c => { %>
-        <li><%= c %></li>
-      <% }) %>
-    </ul>
-  </section>
+		<!-- Costos -->
+		<section id="costos">
+			<h2><%= costs.title %></h2>
+			<ul>
+				<% costs.items.forEach(c => { %>
+				<li><%= c %></li>
+				<% }) %>
+			</ul>
+		</section>
 
-  <%- include('partials/footer') %>
+		<%- include('partials/footer') %>
 
-<script>
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  const body = document.body;
-  if (scrollY > 150) {
-    body.classList.add('scrolled');
-  } else {
-    body.classList.remove('scrolled');
-  }
-});
-</script>
+		<script>
+			window.addEventListener("scroll", () => {
+				const scrollY = window.scrollY;
+				const body = document.body;
+				if (scrollY > 150) {
+					body.classList.add("scrolled");
+				} else {
+					body.classList.remove("scrolled");
+				}
+			});
+		</script>
 
-
-
-  <script>
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const captionText = document.getElementById("caption");
-    function openModal(img) {
-      modal.style.display = "block";
-      modalImg.src = img.src;
-      captionText.innerHTML = img.alt;
-    }
-    function closeModal() {
-      modal.style.display = "none";
-    }
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
-</body>
+		<script>
+			const modal = document.getElementById("imageModal");
+			const modalImg = document.getElementById("modalImage");
+			const captionText = document.getElementById("caption");
+			function openModal(img) {
+				modal.style.display = "block";
+				modalImg.src = img.src;
+				captionText.innerHTML = img.alt;
+			}
+			function closeModal() {
+				modal.style.display = "none";
+			}
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			};
+		</script>
+	</body>
 </html>

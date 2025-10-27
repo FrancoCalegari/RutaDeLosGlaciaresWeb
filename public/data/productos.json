@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "nombreProducto": "hola",
+    "detalleProducto": "test",
+    "extrasProducto": "test",
+    "precioProducto": "200",
+    "descuentoProducto": "2",
+    "imagenesProducto": [
+      ""
+    ]
+  }
+]
