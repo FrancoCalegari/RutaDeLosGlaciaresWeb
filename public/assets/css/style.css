@@ -243,6 +243,157 @@ section p, section ul {
 }
 
 /* =======================
+   PRODUCTOS
+======================= */
+.productos {
+    padding: 80px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--color-blanco);
+}
+
+.productos h2 {
+    color: var(--color-celeste);
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.productos h2::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--color-celeste);
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.producto-lista {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.producto-item {
+    background-color: rgba(20, 30, 40, 0.85);
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+    transition: transform var(--transition), box-shadow var(--transition);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+}
+
+@supports (backdrop-filter: blur(12px)) {
+    .producto-item {
+        background-color: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+    }
+}
+
+.descuento-badge {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    background: rgba(77, 184, 255, 0.92);
+    color: var(--color-negro);
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.4px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.producto-item img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.producto-item h3 {
+    font-size: 1.4rem;
+    color: var(--color-blanco);
+    margin-top: 8px;
+}
+
+.producto-item p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.producto-item .precio {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.producto-item .precio-descuento {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-celeste);
+    letter-spacing: 0.5px;
+}
+
+.producto-item .precio-original {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: line-through;
+}
+
+.producto-item .precio-base {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-celeste);
+    letter-spacing: 0.5px;
+}
+
+.producto-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 54px rgba(0, 0, 0, 0.3);
+}
+
+/* =======================
+   BOTÓN WHATSAPP
+======================= */
+.whatsapp-float {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #25d366;
+    color: var(--color-blanco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 120;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 24px 45px rgba(0, 0, 0, 0.28);
+}
+
+.whatsapp-float:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 4px;
+}
+
+/* =======================
    CARRUSEL DE IMÁGENES
 ======================= */
 #carrusel {
@@ -451,6 +602,37 @@ footer {
 
     section {
         padding: 60px 20px;
+    }
+
+    .productos {
+        padding: 60px 20px;
+    }
+
+    .producto-lista {
+        grid-template-columns: 1fr;
+    }
+
+    .producto-item {
+        padding: 24px 20px;
+    }
+
+    .producto-item img {
+        height: 180px;
+    }
+
+    .descuento-badge {
+        top: 18px;
+        right: 18px;
+        font-size: 0.85rem;
+        padding: 5px 10px;
+    }
+
+    .whatsapp-float {
+        right: 18px;
+        bottom: 18px;
+        width: 52px;
+        height: 52px;
+        font-size: 1.8rem;
     }
 
     #servicios article {

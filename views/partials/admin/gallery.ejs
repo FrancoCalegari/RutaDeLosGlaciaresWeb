@@ -1,19 +1,28 @@
 <section class="admin-section">
   <h2>Galería de Imágenes</h2>
+
+  <!-- Lista de imágenes -->
   <div id="gallery-list">
-    <% images.forEach((img, index) => { 
-         const realId = (typeof img.id === 'number') ? img.id : (index + 1); %>
-      <div class="item" data-id="<%= realId %>">
-        <input type="text" value="<%= img.src %>" class="img-src">
-        <input type="text" value="<%= img.alt %>" class="img-alt">
-        <button onclick="updateImageById(<%= realId %>)">✏️ Actualizar</button>
-        <button onclick="deleteImageById(<%= realId %>)">🗑️ Eliminar</button>
+    <% images.forEach((img) => { %>
+      <div class="item" data-id="<%= img.id %>">
+        <input type="text" class="img-src" value="<%= img.src %>">
+        <input type="text" class="img-alt" value="<%= img.alt %>">
+        <button onclick="updateImageById(<%= img.id %>)">💾 Actualizar</button>
+        <button onclick="deleteImageById(<%= img.id %>)">🗑️ Eliminar</button>
       </div>
     <% }) %>
   </div>
+
+  <!-- Nueva imagen -->
   <div class="new-item">
-    <input type="text" id="newImgSrc" placeholder="URL de imagen">
-    <input type="text" id="newImgAlt" placeholder="Descripción">
+    <h3>Agregar nueva imagen</h3>
+    <label><b>Usar URL de Internet</b></label>
+    <input type="text" id="newImgSrc" placeholder="https://ejemplo.com/imagen.jpg">
+    
+    <label><b>O subir archivo</b></label>
+    <input type="file" id="newImgFile">
+
+    <input type="text" id="newImgAlt" placeholder="Descripción de la imagen">
     <button onclick="addImage()">➕ Agregar Imagen</button>
   </div>
 </section>

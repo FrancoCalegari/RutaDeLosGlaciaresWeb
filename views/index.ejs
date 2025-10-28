@@ -24,21 +24,45 @@
 			<p>Traslados y excursiones privadas en El Calafate y El Chaltén</p>
 		</div>
 
-    <div class="productos" id="productos">
-    <h2>Nuestros Productos</h2>
-    <div class="producto-lista">
-      <% products.forEach(product => { %>
-        <div class="producto-item">
-          <img src="<%= product.imagenesProducto[0] %>" alt="<%= product.nombreProducto %>" />
-          <h3><%= product.nombreProducto %></h3>
-          <p><%= product.detalleProducto %></p>
-          <p><%= product.extrasProducto %></p>
-          <span class="precio">$<%= product.precioProducto %></span>
-        </div>
-      <% }) %>
-    </div>
-  </div>
-
+		<div class="productos" id="productos">
+			<h2>Nuestros Productos</h2>
+			<div class="producto-lista">
+				<% const priceFormatter = new Intl.NumberFormat("es-AR", {
+				minimumFractionDigits: 0, maximumFractionDigits: 2, }); %> <%
+				products.forEach(product => { %> <% const priceValue =
+				parseFloat(product.precioProducto) || 0; const discountValue =
+				parseFloat(product.descuentoProducto) || 0; const hasDiscount =
+				discountValue > 0; const finalPrice = hasDiscount ? priceValue -
+				priceValue * (discountValue / 100) : priceValue; %>
+				<div class="producto-item">
+					<% if (hasDiscount) { %>
+					<span class="descuento-badge">-<%= discountValue %>%</span>
+					<% } %>
+					<img
+						src="<%= product.imagenesProducto[0] %>"
+						alt="<%= product.nombreProducto %>"
+					/>
+					<h3><%= product.nombreProducto %></h3>
+					<p><%= product.detalleProducto %></p>
+					<p><%= product.extrasProducto %></p>
+					<span class="precio">
+						<% if (hasDiscount) { %>
+						<span class="precio-descuento"
+							>$<%= priceFormatter.format(finalPrice) %></span
+						>
+						<span class="precio-original"
+							>$<%= priceFormatter.format(priceValue) %></span
+						>
+						<% } else { %>
+						<span class="precio-base"
+							>$<%= priceFormatter.format(priceValue) %></span
+						>
+						<% } %>
+					</span>
+				</div>
+				<% }) %>
+			</div>
+		</div>
 
 		<!-- Carrusel -->
 		<section id="carrusel">
@@ -113,6 +137,16 @@
 		</section>
 
 		<%- include('partials/footer') %>
+
+		<a
+			class="whatsapp-float"
+			href="https://wa.me/5492617735869"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="Contactar por WhatsApp"
+		>
+			<i class="fa-brands fa-whatsapp"></i>
+		</a>
 
 		<script>
 			window.addEventListener("scroll", () => {

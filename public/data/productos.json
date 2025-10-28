@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": 1,
+    "nombreProducto": "test",
+    "detalleProducto": "test",
+    "extrasProducto": "test",
+    "precioProducto": "11111",
+    "descuentoProducto": "20",
+    "imagenesProducto": [
+      "https://i.pinimg.com/736x/7d/98/b2/7d98b2c6c0fc486ef637eee5f7f99ed6.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "nombreProducto": "prueba",
+    "detalleProducto": "prueba2",
+    "extrasProducto": "pruebas",
+    "precioProducto": "12220",
+    "descuentoProducto": "10",
+    "imagenesProducto": [
+      "https://ar.pinterest.com/pin/87609155247013546/"
+    ]
+  }
+]
