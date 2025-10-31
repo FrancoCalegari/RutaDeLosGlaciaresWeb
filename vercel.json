@@ -6,6 +6,17 @@
       "use": "@vercel/node"
     }
   ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": [
+        "views/**",
+        "public/**",
+        "routes/**",
+        "utils/**",
+        "middleware/**"
+      ]
+    }
+  },
   "routes": [
     {
       "src": "/(.*)",
