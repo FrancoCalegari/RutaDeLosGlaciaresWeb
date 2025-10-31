@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
-const cookieSession = require("cookie-session");
+const session = require("express-session");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -12,34 +12,25 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
-	cookieSession({
-		name: "session",
-		keys: ["4455asjodiejsi4kn"],
-		maxAge: 24 * 60 * 60 * 1000,
+	session({
+		secret: "4455asjodiejsi4kn",
+		resave: false,
+		saveUninitialized: false,
 	})
 );
 
-// ===== Configuración EJS =====
+// ===== EJS =====
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// ===== Importar rutas =====
-const publicRoutes = require("./routes/publicRoutes");
-const adminRoutes = require("./routes/adminRoutes");
-const servicesAPI = require("./routes/api/services");
-const advantagesAPI = require("./routes/api/advantages");
-const costsAPI = require("./routes/api/costs");
-const productosAPI = require("./routes/api/productos");
-const imagesAPI = require("./routes/api/images");
+// ===== Rutas =====
+app.use("/", require("./routes/publicRoutes"));
+app.use("/", require("./routes/adminRoutes"));
+app.use("/api/services", require("./routes/api/services"));
+app.use("/api/advantages", require("./routes/api/advantages"));
+app.use("/api/costs", require("./routes/api/costs"));
+app.use("/api/productos", require("./routes/api/productos"));
+app.use("/api/images", require("./routes/api/images"));
 
-// ===== Montar rutas =====
-app.use("/", publicRoutes);
-app.use("/", adminRoutes);
-app.use("/api/services", servicesAPI);
-app.use("/api/advantages", advantagesAPI);
-app.use("/api/costs", costsAPI);
-app.use("/api/productos", productosAPI);
-app.use("/api/images", imagesAPI);
-
-// ✅ ➤ SIN app.listen() EN VERCEL
+// ✅ Importante en Vercel
 module.exports = app;
