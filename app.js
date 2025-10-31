@@ -23,14 +23,15 @@ app.use(
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// ===== Rutas =====
-app.use("/", require("./routes/publicRoutes"));
-app.use("/", require("./routes/adminRoutes"));
-app.use("/api/services", require("./routes/api/services"));
-app.use("/api/advantages", require("./routes/api/advantages"));
-app.use("/api/costs", require("./routes/api/costs"));
-app.use("/api/productos", require("./routes/api/productos"));
-app.use("/api/images", require("./routes/api/images"));
+// ===== Montar rutas =====
+app.use("/", publicRoutes);
+app.use("/", adminRoutes);
+app.use("/api/services", servicesAPI);
+app.use("/api/advantages", advantagesAPI);
+app.use("/api/costs", costsAPI);
+app.use("/api/productos", productosAPI);
+app.use("/api/images", imagesAPI);
 
-// ✅ Importante en Vercel
+// ✅ Exportar express para Vercel
 module.exports = app;
+
