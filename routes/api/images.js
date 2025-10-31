@@ -8,9 +8,12 @@ const { checkAdmin } = require("../../middleware/auth");
 
 const FILE = "images.json";
 const uploadDir = path.join(__dirname, "../../public/uploads/gallery");
+const isReadOnlyDeployment = Boolean(process.env.VERCEL);
 
-// Crear carpeta si no existe
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
+// Crear carpeta si no existe (solo en entornos con escritura)
+if (!isReadOnlyDeployment && !fs.existsSync(uploadDir)) {
+	fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Configuración de multer
 const storage = multer.diskStorage({
@@ -23,6 +26,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+const uploadMiddleware = isReadOnlyDeployment
+	? (req, res, next) => next()
+	: upload.single("file");
 
 // === GET todas las imágenes ===
 router.get("/", (req, res) => {
@@ -31,7 +37,12 @@ router.get("/", (req, res) => {
 });
 
 // === POST: agregar imagen (url externa o archivo local) ===
-router.post("/", checkAdmin, upload.single("file"), (req, res) => {
+router.post("/", checkAdmin, uploadMiddleware, (req, res) => {
+  if (isReadOnlyDeployment) {
+    return res.status(503).json({
+      error: "Uploads deshabilitados en el entorno de despliegue.",
+    });
+  }
   const images = readJSON(FILE, []);
   const newId = images.length
     ? Math.max(...images.map((img) => img.id || 0)) + 1
@@ -59,6 +70,11 @@ router.post("/", checkAdmin, upload.single("file"), (req, res) => {
 
 // === PUT: editar ===
 router.put("/:id", checkAdmin, (req, res) => {
+  if (isReadOnlyDeployment) {
+    return res.status(503).json({
+      error: "Edición deshabilitada en el entorno de despliegue.",
+    });
+  }
   const id = parseInt(req.params.id);
   const images = readJSON(FILE, []);
   const index = images.findIndex((img) => img.id === id);
@@ -76,6 +92,11 @@ router.put("/:id", checkAdmin, (req, res) => {
 
 // === DELETE: eliminar ===
 router.delete("/:id", checkAdmin, (req, res) => {
+  if (isReadOnlyDeployment) {
+    return res.status(503).json({
+      error: "Eliminación deshabilitada en el entorno de despliegue.",
+    });
+  }
   const id = parseInt(req.params.id);
   const images = readJSON(FILE, []);
   const index = images.findIndex((img) => img.id === id);
