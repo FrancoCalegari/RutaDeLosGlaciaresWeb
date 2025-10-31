@@ -1,11 +1,10 @@
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 
 const app = express();
-const PORT = 3000;
 
 // ===== Middleware =====
 app.use(morgan("dev"));
@@ -13,10 +12,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
-	session({
-		secret: "4455asjodiejsi4kn",
-		resave: false,
-		saveUninitialized: false,
+	cookieSession({
+		name: "session",
+		keys: ["4455asjodiejsi4kn"],
+		maxAge: 24 * 60 * 60 * 1000,
 	})
 );
 
@@ -33,7 +32,6 @@ const costsAPI = require("./routes/api/costs");
 const productosAPI = require("./routes/api/productos");
 const imagesAPI = require("./routes/api/images");
 
-
 // ===== Montar rutas =====
 app.use("/", publicRoutes);
 app.use("/", adminRoutes);
@@ -42,7 +40,6 @@ app.use("/api/advantages", advantagesAPI);
 app.use("/api/costs", costsAPI);
 app.use("/api/productos", productosAPI);
 app.use("/api/images", imagesAPI);
-// ===== Iniciar servidor =====
-app.listen(PORT, () => {
-	console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-});
+
+// ✅ ➤ SIN app.listen() EN VERCEL
+module.exports = app;
