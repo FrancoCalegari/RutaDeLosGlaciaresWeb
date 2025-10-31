@@ -38,7 +38,7 @@ router.get("/admin", checkAdmin, (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-	req.session.destroy();
+	req.session = null;
 	res.redirect("/");
 });
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
-const session = require("express-session");
+const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 
 const publicRoutes = require("./routes/publicRoutes");
@@ -20,10 +20,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
-	session({
-		secret: "4455asjodiejsi4kn",
-		resave: false,
-		saveUninitialized: false,
+	cookieSession({
+		name: "session",
+		keys: [process.env.SESSION_SECRET || "4455asjodiejsi4kn"],
+		maxAge: 24 * 60 * 60 * 1000, // 1 día
 	})
 );
 
