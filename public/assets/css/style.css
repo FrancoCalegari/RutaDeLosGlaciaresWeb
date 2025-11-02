@@ -168,6 +168,7 @@ body.scrolled .logo-navbar img,
 body.scrolled .navbar .logo img {
      opacity: 1;
      transform: translateY(0);
+     padding: 0.5rem;
      
 }
 
@@ -176,6 +177,7 @@ body.scrolled .navbar .logo img {
      .hero .logo,
      .logo-hero {
           width: 40vw;
+          
      }
 
        .logo-navbar,
@@ -193,9 +195,10 @@ body.scrolled .navbar .logo img {
      }
 
      .navbar {
-          flex-direction: row;
+          flex-direction: column;
           padding: 1rem;
           height: auto;
+          
      }
      
      .nav-links {
@@ -205,7 +208,8 @@ body.scrolled .navbar .logo img {
      body.scrolled .logo-navbar img, body.scrolled .navbar .logo img {
         opacity: 1;
         transform: translateY(0);
-        width: 6vw;
+        width: auto;
+        padding: 0.5rem;
     }
 }
 
@@ -428,6 +432,7 @@ section p, section ul {
     backdrop-filter: blur(23px);
     border-radius: 25px;
     box-shadow: 5px 10px 74px;
+    overflow: hidden;
 }
 
 .carousel-container {
