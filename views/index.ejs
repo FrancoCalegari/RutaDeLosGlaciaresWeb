@@ -33,7 +33,16 @@
 				parseFloat(product.precioProducto) || 0; const discountValue =
 				parseFloat(product.descuentoProducto) || 0; const hasDiscount =
 				discountValue > 0; const finalPrice = hasDiscount ? priceValue -
-				priceValue * (discountValue / 100) : priceValue; %>
+				priceValue * (discountValue / 100) : priceValue; const whatsappParts =
+				[
+					"Hola, estoy interesado en el producto " + product.nombreProducto + ".",
+					"Detalles: " + product.detalleProducto
+				]; if (product.extrasProducto) {
+				whatsappParts.push("Extras: " + product.extrasProducto);
+				} whatsappParts.push("¿Podrían brindarme más información?"); const
+				whatsappMessage = encodeURIComponent(whatsappParts.join(" "));
+				const whatsappLink =
+				"https://wa.me/5492617735869?text=" + whatsappMessage; %>
 				<div class="producto-item">
 					<% if (hasDiscount) { %>
 					<span class="descuento-badge">-<%= discountValue %>%</span>
@@ -59,6 +68,16 @@
 						>
 						<% } %>
 					</span>
+					<a
+						class="btn-comprar"
+						href="<%= whatsappLink %>"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Comprar <%= product.nombreProducto %> por WhatsApp"
+					>
+						<i class="fa-brands fa-whatsapp"></i>
+						Comprar por WhatsApp
+					</a>
 				</div>
 				<% }) %>
 			</div>

@@ -336,6 +336,31 @@ section p, section ul {
     gap: 6px;
 }
 
+.btn-comprar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    background: var(--color-celeste);
+    color: var(--color-negro);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.btn-comprar i {
+    font-size: 1.1rem;
+}
+
+.btn-comprar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(77, 184, 255, 0.35);
+    background: rgba(77, 184, 255, 0.85);
+}
+
 .producto-item .precio-descuento {
     font-size: 1.4rem;
     font-weight: 700;
