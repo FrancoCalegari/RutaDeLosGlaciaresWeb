@@ -1,24 +1,57 @@
 [
   {
     "id": 1,
-    "nombreProducto": "test",
-    "detalleProducto": "test",
-    "extrasProducto": "test",
-    "precioProducto": "11111",
-    "descuentoProducto": "20",
+    "nombreProducto": "Viaje a Glaciar Perito Moreno (Pasarelas)",
+    "detalleProducto": "Tour de día completo para visitar las pasarelas del Glaciar Perito Moreno. Disfruta de vistas grandiosas de esta maravilla natural y sus desprendimientos.",
+    "extrasProducto": "No incluye: almuerzo, alojamiento ni entrada al Parque Nacional. Se recomienda llevar vianda y ropa de abrigo. Salida desde El Calafate.",
+    "precioProducto": "250000",
+    "descuentoProducto": "",
     "imagenesProducto": [
-      "https://i.pinimg.com/736x/7d/98/b2/7d98b2c6c0fc486ef637eee5f7f99ed6.jpg"
+      "../assets/img/productos/Calafateviaje1.png"
     ]
   },
   {
     "id": 2,
-    "nombreProducto": "prueba",
-    "detalleProducto": "prueba2",
-    "extrasProducto": "pruebas",
-    "precioProducto": "12220",
+    "nombreProducto": "Navegación Ríos de Hielo (Upsala y Spegazzini)",
+    "detalleProducto": "Navegación de día completo por el Lago Argentino para ver los glaciares Upsala (barrera de témpanos) y Spegazzini (la pared más alta).",
+    "extrasProducto": "No incluye: almuerzo, traslado al Puerto Punta Bandera, ni entrada al Parque Nacional. Se puede llevar vianda. Requiere ropa de mucho abrigo.",
+    "precioProducto": "350000",
     "descuentoProducto": "10",
     "imagenesProducto": [
-      "https://ar.pinterest.com/pin/87609155247013546/"
+      "https://caltur.com.ar/wp-content/uploads/2023/08/Todo-Glaciares.webp"
+    ]
+  },
+  {
+    "id": 3,
+    "nombreProducto": "Minitrekking sobre Glaciar Perito Moreno",
+    "detalleProducto": "¡Camina sobre el Glaciar Perito Moreno! Incluye visita a pasarelas, navegación de aproximación y una caminata de 1.5 horas sobre el hielo con grampones.",
+    "extrasProducto": "No incluye almuerzo ni entrada al Parque Nacional. Incluye grampones. Requiere calzado de trekking y ropa impermeable. Restricciones de edad (10-65 años) y salud.",
+    "precioProducto": "480000",
+    "descuentoProducto": "",
+    "imagenesProducto": [
+      "https://api.hieloyaventura.com/store/pictureExcurtion/minitrekking0_1-featured.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "nombreProducto": "Estancia Cristina - Upsala Discovery",
+    "detalleProducto": "Navegación al Glaciar Upsala con desembarco en la histórica Estancia Cristina. Incluye visita al museo y travesía 4x4 a un mirador exclusivo.",
+    "extrasProducto": "No incluye: almuerzo, traslado al puerto, ni entrada al Parque Nacional. Se puede llevar vianda. Requiere buena movilidad física. Día completo.",
+    "precioProducto": "550000",
+    "descuentoProducto": "5",
+    "imagenesProducto": [
+      "https://estanciacristina.com/es/wp-content/uploads/sites/4/2022/10/GALERIA-UPSALA.jpg?x56265"
+    ]
+  },
+  {
+    "id": 5,
+    "nombreProducto": "Visita al Glaciarium - Museo del Hielo",
+    "detalleProducto": "Visita al museo interactivo de glaciares 'Glaciarium'. Una actividad de medio día, ideal para entender la formación del hielo patagónico. Opcional: 'Glaciobar' a -10°C.",
+    "extrasProducto": "Medio día. Incluye shuttle gratuito desde El Calafate. La entrada al Glaciobar (opcional) incluye una consumición. El museo tiene cafetería.",
+    "precioProducto": "85000",
+    "descuentoProducto": "",
+    "imagenesProducto": [
+      "https://images.adsttc.com/media/images/5013/b4e6/28ba/0d39/6300/0aba/large_jpg/stringio.jpg?1414586136"
     ]
   }
 ]
