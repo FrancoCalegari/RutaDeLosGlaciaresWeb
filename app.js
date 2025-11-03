@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const morgan = require("morgan");
@@ -11,6 +12,7 @@ const advantagesAPI = require("./routes/api/advantages");
 const costsAPI = require("./routes/api/costs");
 const productosAPI = require("./routes/api/productos");
 const imagesAPI = require("./routes/api/images");
+const mercadopagoAPI = require("./routes/api/mercadopago");
 
 const app = express();
 
@@ -27,6 +29,11 @@ app.use(
 	})
 );
 
+app.use((req, res, next) => {
+	res.locals.mpPublicKey = process.env.MP_PUBLIC_KEY || "";
+	next();
+});
+
 // ===== EJS =====
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -39,6 +46,7 @@ app.use("/api/advantages", advantagesAPI);
 app.use("/api/costs", costsAPI);
 app.use("/api/productos", productosAPI);
 app.use("/api/images", imagesAPI);
+app.use("/api/mercadopago", mercadopagoAPI);
 
 // ===== Servidor =====
 const PORT = process.env.PORT || 3000;

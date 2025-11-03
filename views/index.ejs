@@ -68,16 +68,27 @@
 						>
 						<% } %>
 					</span>
-					<a
-						class="btn-comprar"
-						href="<%= whatsappLink %>"
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="Comprar <%= product.nombreProducto %> por WhatsApp"
-					>
-						<i class="fa-brands fa-whatsapp"></i>
-						Comprar por WhatsApp
-					</a>
+					<div class="producto-acciones">
+						<button
+							type="button"
+							class="btn-comprar btn-mercadopago"
+							data-product-id="<%= product.id %>"
+							aria-label="Pagar <%= product.nombreProducto %> online"
+						>
+							<i class="fa-solid fa-credit-card"></i>
+							Pagar online
+						</button>
+						<a
+							class="btn-comprar btn-whatsapp"
+							href="<%= whatsappLink %>"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Comprar <%= product.nombreProducto %> por WhatsApp"
+						>
+							<i class="fa-brands fa-whatsapp"></i>
+							Comprar por WhatsApp
+						</a>
+					</div>
 				</div>
 				<% }) %>
 			</div>
@@ -197,5 +208,92 @@
 				}
 			};
 		</script>
+
+		<div class="checkout-modal" id="checkout-modal" aria-hidden="true">
+			<div
+				class="checkout-modal__box"
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="checkout-modal-title"
+			>
+				<button
+					class="checkout-modal__close"
+					type="button"
+					data-close="true"
+					aria-label="Cerrar formulario de pago"
+				>
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+				<h3 id="checkout-modal-title">Completa tus datos</h3>
+				<p class="checkout-modal__description">
+					Usamos esta información para emitir el pago y enviarte el comprobante.
+				</p>
+				<form id="checkout-form">
+					<div class="checkout-modal__grid">
+						<label>
+							<span>Nombre</span>
+							<input type="text" name="name" autocomplete="given-name" required />
+						</label>
+						<label>
+							<span>Apellido</span>
+							<input
+								type="text"
+								name="lastName"
+								autocomplete="family-name"
+								required
+							/>
+						</label>
+						<label class="checkout-modal__grid--full">
+							<span>Correo electrónico</span>
+							<input type="email" name="email" autocomplete="email" required />
+						</label>
+						<label>
+							<span>Código de área</span>
+							<input
+								type="tel"
+								name="areaCode"
+								inputmode="numeric"
+								pattern="[0-9]{1,5}"
+								placeholder="Ej: 11"
+							/>
+						</label>
+						<label>
+							<span>Teléfono</span>
+							<input
+								type="tel"
+								name="phone"
+								inputmode="numeric"
+								pattern="[0-9]{6,15}"
+								placeholder="Ej: 55551234"
+							/>
+						</label>
+						<label>
+							<span>Cantidad</span>
+							<input
+								type="number"
+								name="quantity"
+								min="1"
+								value="1"
+								step="1"
+								required
+							/>
+						</label>
+					</div>
+					<p class="checkout-modal__error" id="checkout-error" role="alert" hidden>
+						No se pudo iniciar el pago, intenta más tarde.
+					</p>
+					<button type="submit" class="btn-comprar checkout-modal__submit">
+						<i class="fa-solid fa-lock"></i>
+						Ir a pagar
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<script>
+			window.__MP_PUBLIC_KEY__ = "<%= mpPublicKey %>";
+		</script>
+		<script src="https://sdk.mercadopago.com/js/v2"></script>
+		<script src="/assets/js/checkout.js" defer></script>
 	</body>
 </html>

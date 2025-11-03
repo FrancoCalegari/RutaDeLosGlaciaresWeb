@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+	<%- include('partials/head') %>
+	<body>
+		<%- include('partials/header') %>
+
+		<main class="checkout-status">
+			<div class="checkout-status__card">
+				<% if (status === "success") { %>
+				<h1>¡Pago aprobado!</h1>
+				<p>
+					Gracias por tu compra. En breve recibirás un correo con los detalles y nos
+					contactaremos para coordinar tu experiencia.
+				</p>
+				<% } else if (status === "pending") { %>
+				<h1>Pago pendiente</h1>
+				<p>
+					El pago se encuentra en revisión. Te avisaremos por correo cuando se
+					confirme.
+				</p>
+				<% } else { %>
+				<h1>Pago rechazado o cancelado</h1>
+				<p>
+					El pago no se pudo completar. Puedes intentar nuevamente o comunicarte con
+					nosotros para buscar otra alternativa.
+				</p>
+				<% } %>
+				<ul class="checkout-status__details">
+					<li><strong>ID de pago:</strong> <%= paymentId || "No disponible" %></li>
+					<li>
+						<strong>Estado reportado por Mercado Pago:</strong>
+						<%= collectionStatus || "No disponible" %>
+					</li>
+				</ul>
+				<a class="btn-comprar" href="/">
+					<i class="fa-solid fa-arrow-left"></i>
+					Volver al inicio
+				</a>
+			</div>
+		</main>
+
+		<%- include('partials/footer') %>
+	</body>
+</html>

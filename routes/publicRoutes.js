@@ -36,4 +36,25 @@ router.get("/", (req, res) => {
 	});
 });
 
+router.get("/checkout/:status", (req, res) => {
+	const { status } = req.params;
+	const statusList = ["success", "pending", "failure"];
+
+	if (!statusList.includes(status)) {
+		return res.redirect("/");
+	}
+
+	const paymentId =
+		req.query.payment_id || req.query["data.id"] || req.query.preference_id;
+	const collectionStatus =
+		req.query.collection_status || req.query.status || status;
+
+	res.render("checkout-status", {
+		title: "Estado de pago",
+		status,
+		paymentId,
+		collectionStatus,
+	});
+});
+
 module.exports = router;
