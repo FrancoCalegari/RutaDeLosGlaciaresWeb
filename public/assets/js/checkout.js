@@ -18,8 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	const errorBox = document.getElementById("checkout-error");
 	const closeButton = modal?.querySelector("[data-close='true']");
 	const submitButton = form?.querySelector("button[type='submit']");
+	const couponInput = document.getElementById("checkout-coupon");
+	const couponButton = document.getElementById("checkout-apply-coupon");
+	const couponFeedback = document.getElementById("checkout-coupon-feedback");
 
 	let currentProductId = null;
+	let appliedCoupon = null;
 
 	const showError = (message) => {
 		if (!errorBox) return;
@@ -32,11 +36,50 @@ document.addEventListener("DOMContentLoaded", () => {
 		errorBox.hidden = true;
 	};
 
+	const showCouponMessage = (type, message) => {
+		if (!couponFeedback) return;
+
+		couponFeedback.classList.remove("is-success", "is-error", "is-info");
+
+		if (!message) {
+			couponFeedback.hidden = true;
+			return;
+		}
+
+		let className = "is-info";
+		if (type === "success") className = "is-success";
+		if (type === "error") className = "is-error";
+		couponFeedback.classList.add(className);
+		couponFeedback.textContent = message;
+		couponFeedback.hidden = false;
+	};
+
+	const clearCouponState = () => {
+		appliedCoupon = null;
+		if (couponInput) {
+			couponInput.value = "";
+		}
+		showCouponMessage(null, "");
+	};
+
+	const markCouponNeedsValidation = () => {
+		appliedCoupon = null;
+		if (couponInput && couponInput.value.trim().length > 0) {
+			showCouponMessage(
+				"info",
+				"Vuelve a aplicar el cupón para confirmar el descuento."
+			);
+		} else {
+			showCouponMessage(null, "");
+		}
+	};
+
 	const showModal = () => {
 		if (!modal) return;
 		modal.classList.add("is-visible");
 		modal.setAttribute("aria-hidden", "false");
 		hideError();
+		clearCouponState();
 	};
 
 	const hideModal = () => {
@@ -47,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			form.reset();
 		}
 		hideError();
+		clearCouponState();
 		currentProductId = null;
 	};
 
@@ -64,6 +108,75 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	closeButton?.addEventListener("click", hideModal);
+
+	couponInput?.addEventListener("input", () => {
+		markCouponNeedsValidation();
+	});
+
+	const quantityInput = form?.elements.namedItem("quantity");
+	quantityInput?.addEventListener("input", () => {
+		markCouponNeedsValidation();
+	});
+
+	couponButton?.addEventListener("click", async () => {
+		if (!currentProductId) {
+			showCouponMessage("error", "Selecciona un producto antes de aplicar el cupón.");
+			return;
+		}
+
+		const code = couponInput?.value.trim();
+		if (!code) {
+			showCouponMessage("error", "Ingresa un código de cupón válido.");
+			return;
+		}
+
+		const quantity = Number(quantityInput?.value) || 1;
+
+		try {
+			couponButton.disabled = true;
+			couponButton.classList.add("is-loading");
+			showCouponMessage("info", "Validando cupón…");
+
+			const response = await fetch("/api/mercadopago/coupon/validate", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					couponCode: code,
+					productId: Number(currentProductId),
+					quantity,
+				}),
+			});
+
+			if (!response.ok) {
+				const errorResponse = await response.json().catch(() => ({}));
+				throw new Error(errorResponse.error || "El cupón no es válido.");
+			}
+
+			const data = await response.json();
+			appliedCoupon = { code: data.code };
+			couponInput.value = data.code;
+
+			const formatter = new Intl.NumberFormat("es-AR", {
+				style: "currency",
+				currency: "ARS",
+				minimumFractionDigits: 2,
+			});
+
+			showCouponMessage(
+				"success",
+				`Cupón aplicado. Descuento: ${formatter.format(
+					data.discount
+				)} · Total final: ${formatter.format(data.finalTotal)}.`
+			);
+		} catch (error) {
+			console.error("Error al validar cupón:", error);
+			appliedCoupon = null;
+			showCouponMessage("error", error.message || "No se pudo validar el cupón.");
+		} finally {
+			couponButton.disabled = false;
+			couponButton.classList.remove("is-loading");
+		}
+	});
 
 	form?.addEventListener("submit", async (event) => {
 		event.preventDefault();
@@ -86,6 +199,13 @@ document.addEventListener("DOMContentLoaded", () => {
 				phone: formData.get("phone"),
 			},
 		};
+
+		const couponValue = (formData.get("coupon") || "").toString().trim();
+		if (appliedCoupon?.code) {
+			payload.couponCode = appliedCoupon.code;
+		} else if (couponValue) {
+			payload.couponCode = couponValue;
+		}
 
 		try {
 			if (submitButton) {

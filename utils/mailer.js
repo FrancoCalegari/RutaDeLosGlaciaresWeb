@@ -31,9 +31,19 @@ if (smtpHost && smtpUser && smtpPass) {
  * @param {string} [options.name]
  * @param {Object} [options.product]
  * @param {number|string} [options.total]
+ * @param {number|string} [options.originalTotal]
+ * @param {{code:string, discount:number}} [options.coupon]
  * @param {string|number} [options.paymentId]
  */
-async function sendPurchaseEmail({ to, name, product, total, paymentId }) {
+async function sendPurchaseEmail({
+	to,
+	name,
+	product,
+	total,
+	originalTotal,
+	coupon,
+	paymentId,
+}) {
 	if (!transporter) {
 		console.warn("[mailer] Intento de enviar correo sin transporter configurado.");
 		return;
@@ -45,6 +55,10 @@ async function sendPurchaseEmail({ to, name, product, total, paymentId }) {
 	}
 
 	const safeTotal = typeof total === "number" ? total.toFixed(2) : total;
+	const safeOriginalTotal =
+		typeof originalTotal === "number" ? originalTotal.toFixed(2) : originalTotal;
+	const safeDiscount =
+		typeof coupon?.discount === "number" ? coupon.discount.toFixed(2) : null;
 
 	const html = `
 		<h1>¡Gracias por tu compra!</h1>
@@ -53,7 +67,13 @@ async function sendPurchaseEmail({ to, name, product, total, paymentId }) {
 			<li><strong>ID de pago:</strong> ${paymentId || "No disponible"}</li>
 			<li><strong>Producto:</strong> ${product?.title || "No disponible"}</li>
 			<li><strong>Cantidad:</strong> ${product?.quantity || 1}</li>
-			<li><strong>Total:</strong> $${safeTotal || "No disponible"}</li>
+			${safeOriginalTotal ? `<li><strong>Total antes de descuentos:</strong> $${safeOriginalTotal}</li>` : ""}
+			${
+				coupon && coupon.code
+					? `<li><strong>Cupón aplicado (${coupon.code}):</strong> -$${safeDiscount || "No disponible"}</li>`
+					: ""
+			}
+			<li><strong>Total pagado:</strong> $${safeTotal || "No disponible"}</li>
 		</ul>
 		<p>Nos pondremos en contacto para coordinar los detalles de tu experiencia.</p>
 		<p>Ante cualquier consulta puedes escribirnos respondiendo este correo.</p>

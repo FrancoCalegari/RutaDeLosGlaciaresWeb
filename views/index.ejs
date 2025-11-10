@@ -279,6 +279,31 @@
 							/>
 						</label>
 					</div>
+					<div class="checkout-modal__coupon">
+						<label class="checkout-modal__coupon-label">
+							<span>¿Tenés un cupón?</span>
+							<input
+								type="text"
+								name="coupon"
+								id="checkout-coupon"
+								placeholder="Ej: BIENVENIDA10"
+								autocomplete="off"
+							/>
+						</label>
+						<button
+							type="button"
+							class="btn-comprar checkout-modal__coupon-apply"
+							id="checkout-apply-coupon"
+						>
+							<i class="fa-solid fa-tag"></i>
+							Aplicar cupón
+						</button>
+					</div>
+					<p
+						class="checkout-modal__coupon-feedback"
+						id="checkout-coupon-feedback"
+						hidden
+					></p>
 					<p class="checkout-modal__error" id="checkout-error" role="alert" hidden>
 						No se pudo iniciar el pago, intenta más tarde.
 					</p>

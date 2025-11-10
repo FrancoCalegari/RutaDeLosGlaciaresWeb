@@ -1,0 +1,29 @@
+[
+	{
+		"code": "BIENVENIDA10",
+		"type": "percentage",
+		"value": 10,
+		"description": "10% de descuento en tu primera compra",
+		"minAmount": 50000,
+		"allowedProducts": [],
+		"expiresAt": "2026-12-31"
+	},
+	{
+		"code": "GLACIARES5000",
+		"type": "amount",
+		"value": 5000,
+		"description": "$5.000 de descuento en compras mayores a $120.000",
+		"minAmount": 120000,
+		"allowedProducts": [],
+		"expiresAt": null
+	},
+	{
+		"code": "EXPERIENCIA2X1",
+		"type": "percentage",
+		"value": 50,
+		"description": "50% de descuento en el segundo pasajero (productos 2 y 4)",
+		"minAmount": 0,
+		"allowedProducts": [2, 4],
+		"expiresAt": "2025-12-31"
+	}
+]
